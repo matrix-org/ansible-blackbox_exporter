@@ -1,0 +1,17 @@
+[Unit]
+Description="Prometheus Blackbox (ping/http probe) Exporter (blackbox_exporter)"
+
+[Service]
+Type=simple
+WorkingDirectory=/opt/blackbox_exporter
+ExecStart=/opt/blackbox_exporter/releases/blackbox_exporter-{{ blackbox_exporter_version }}.linux-amd64/blackbox_exporter --config.file /opt/blackbox_exporter/blackbox.yml
+User=prometheus
+Group=prometheus
+Restart=always
+StandardOut=syslog
+SyslogIdentifier=blackbox_exporter
+SyslogFacility=local3
+
+[Install]
+WantedBy=default.target
+
