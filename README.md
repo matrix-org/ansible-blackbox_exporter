@@ -1,4 +1,4 @@
-Role Name
+ansible-blackbox\_exporter
 =========
 
 Deploys a "blackbox\_exporter" under the prometheus user
