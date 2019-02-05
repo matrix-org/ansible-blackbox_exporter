@@ -6,3 +6,20 @@ modules:
   icmp:
     prober: icmp
     timeout: 5s
+  smtp_starttls:
+    prober: tcp
+    timeout: 15s # we tarpit for 5s before returning a banner.
+    tcp:
+      query_response:
+        - expect: "^220 ([^ ]+) ESMTP (.+)$"
+        - send: "EHLO prometheus"
+        - expect: "^250-STARTTLS"
+        - send: "STARTTLS"
+        - expect: "^220"
+        - starttls: true
+        - send: "EHLO prometheus"
+        - expect: "^250-AUTH"
+        - send: "QUIT"
+  tcp_connect:
+    prober: tcp
+    timeout: 5s
