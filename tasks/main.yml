@@ -42,6 +42,12 @@
     creates: /opt/blackbox_exporter/releases/blackbox_exporter-{{ blackbox_exporter_version }}.linux-amd64/blackbox_exporter
     owner: prometheus
     group: prometheus
+    
+- name: Set cap_net_raw+ep on blackbox exporter
+  capabilities:
+    path: /opt/blackbox_exporter/releases/blackbox_exporter-{{ blackbox_exporter_version }}.linux-amd64/blackbox_exporter
+    capability: cap_net_raw+ep
+    state: present
 
 - name: Create blackbox config
   template:
