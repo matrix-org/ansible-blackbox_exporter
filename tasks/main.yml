@@ -5,6 +5,10 @@
     state: present
     create_home: no
     shell: /bin/bash
+    
+- name: Install deps
+  apt:
+    name: libcap2-bin
 
 - name: Make directory
   file:
@@ -48,6 +52,8 @@
     path: /opt/blackbox_exporter/releases/blackbox_exporter-{{ blackbox_exporter_version }}.linux-amd64/blackbox_exporter
     capability: cap_net_raw+ep
     state: present
+  notify:
+    - "restart blackbox_exporter"
 
 - name: Create blackbox config
   template:
